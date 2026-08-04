@@ -63,9 +63,13 @@ python -m http.server 8000
 # abrir http://localhost:8000
 ```
 
+## Identidade visual
+
+Paleta e tipografia seguem o `MANUAL - IVA.pdf` (fora do repo, em `Ship/`): cores oficiais como variáveis `--brand-*` no topo de `css/style.css`, fontes Montserrat Alternates (títulos) e Montserrat (texto) carregadas via Google Fonts no `<head>`. O logo real (`img/logo-siph.png`) foi extraído do PDF do manual com o fundo removido — se precisar de uma versão nova (ex.: logo em vetor oficial), é só substituir esse arquivo mantendo a proporção.
+
 ## Pendências antes de subir campanha
 
-- Substituir os 7 placeholders de foto por imagens reais.
+- Faltam fotos reais em 3 pontos: capa da seção "Chamada final" (criança sorrindo em atividade) e a foto/vídeo de depoimento da seção "Prova social" — os demais 4 placeholders já foram substituídos por fotos reais.
 - Substituir o depoimento de exemplo por um real e autorizado (seção "Prova social").
 - Preencher `metaPixelId` / `googleAdsId` / `googleConversionLabel` em `config/site.js`.
 - Definir `leadEndpoint` se/quando WALeads ou Kommo forem escolhidos.
