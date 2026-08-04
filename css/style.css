@@ -1,34 +1,36 @@
 /* =========================================================
    SIPH — Landing Page de Agendamento
-   Paleta de marca: principais em CTAs/títulos/destaques,
-   secundárias apenas como apoio pontual (ícones, selos, cards).
+   Paleta e tipografia conforme Manual de Marca (MANUAL - IVA.pdf):
+   rosa/vermelho como identidade e ação, azul/verde/roxo como apoio.
    A maior parte da página usa branco / off-white / tons claros.
    ========================================================= */
 
 :root {
-  /* Cores principais */
-  --primary-light: #F2A4BF;
-  --primary: #F27BA4;
-  --primary-dark: #F23F7D;
-  /* Tom mais profundo da mesma família — usado onde é preciso
-     contraste seguro com texto branco (botões, bloco de objeção). */
-  --primary-deep: #C22B62;
-  --primary-deep-hover: #A8214F;
-  /* Tom muito claro da mesma família — fundo de selos/chips,
-     par seguro em contraste com --primary-deep por cima. */
-  --primary-pale: #FBE8EF;
+  /* Paleta oficial (Manual de Marca) */
+  --brand-pink: #dfa4bc;
+  --brand-blue-light: #5da4e2;
+  --brand-green: #a9cb45;
+  --brand-purple: #948fb5;
+  --brand-red: #c7222e;
+  --brand-blue-dark: #4579ae;
 
-  /* Cores secundárias (apoio pontual apenas) */
-  --green-light: #D2F291;
-  --green-cream: #F0FFD4;
-  --green: #9AD91A;
-  --cyan-light: #B3F8FF;
-  --cyan: #6EF2FF;
-  --teal: #25C9D9;
-  --purple-light: #9891B8;
-  --purple: #9F8CF2;
-  --purple-dark: #5F5494;
-  --yellow: #FFD833;
+  /* Tom de ação — única cor da paleta escura/saturada o bastante para
+     texto branco em cima com contraste seguro (CTAs, bloco de objeção). */
+  --primary-deep: var(--brand-red);
+  --primary-deep-hover: #a11c26;
+  --primary-deep-rgb: 199, 34, 46;
+
+  /* Tons pálidos derivados — fundo de selos/chips/seções, sempre com
+     contraste verificado para o texto escuro ou de marca por cima. */
+  --primary-pale: #FBE8EF;
+  --blue-pale: #EAF4FC;
+  --green-pale: #F1F6E3;
+  --purple-pale: #EFEBF5;
+
+  /* Azul escurecido só para o rodapé: brand-blue-dark sozinho já é o
+     limite do AA (4.57:1) com branco 100% opaco — insuficiente para as
+     variações de opacidade usadas na hierarquia de texto do rodapé. */
+  --footer-bg: #345B83;
 
   --ink: #2B2333;
   --ink-soft: #5B5468;
@@ -48,8 +50,8 @@
   --container: 1180px;
   --gap: clamp(1.5rem, 4vw, 3rem);
 
-  --font-head: "Quicksand", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-head: "Montserrat Alternates", "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 /* ---------- Reset ---------- */
@@ -140,9 +142,9 @@ body { overflow-x: hidden; }
 .btn-primary {
   background: var(--primary-deep);
   color: var(--white);
-  box-shadow: var(--shadow-md), 0 6px 20px rgba(194, 43, 98, 0.3);
+  box-shadow: var(--shadow-md), 0 6px 20px rgba(var(--primary-deep-rgb), 0.3);
 }
-.btn-primary:hover { background: var(--primary-deep-hover); box-shadow: var(--shadow-lg), 0 8px 26px rgba(194, 43, 98, 0.4); transform: translateY(-2px); }
+.btn-primary:hover { background: var(--primary-deep-hover); box-shadow: var(--shadow-lg), 0 8px 26px rgba(var(--primary-deep-rgb), 0.4); transform: translateY(-2px); }
 
 .btn-white {
   background: var(--white);
@@ -222,21 +224,22 @@ body { overflow-x: hidden; }
 
 /* ---------- Topo simples (sem navegação) ---------- */
 .topbar {
-  padding-block: 0.9rem;
+  padding-block: 0.7rem;
   background: rgba(255, 253, 249, 0.92);
   backdrop-filter: blur(10px) saturate(160%);
   -webkit-backdrop-filter: blur(10px) saturate(160%);
   position: sticky;
   top: 0;
   z-index: 500;
-  border-bottom: 1px solid rgba(242, 63, 125, 0.12);
+  border-bottom: 1px solid rgba(var(--primary-deep-rgb), 0.12);
   box-shadow: 0 4px 20px rgba(43, 35, 51, 0.05);
 }
 .topbar-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem; }
-.brand { display: flex; align-items: center; gap: 0.6em; font-family: var(--font-head); font-weight: 700; font-size: 1.25rem; color: var(--primary-deep); }
-.brand-mark { width: 36px; height: 36px; border-radius: 10px; }
+.brand { display: flex; align-items: center; gap: 0.6em; }
+.brand-mark { height: 44px; width: auto; display: block; }
 .topbar-cta { padding: 0.65em 1.3em; font-size: 0.92rem; white-space: nowrap; flex-shrink: 0; }
 @media (max-width: 480px) {
+  .brand-mark { height: 38px; }
   .topbar-cta { padding: 0.6em 1em; font-size: 0.82rem; }
 }
 
@@ -256,14 +259,14 @@ body { overflow-x: hidden; }
 .hero::before {
   width: 320px; height: 320px;
   top: -110px; right: -70px;
-  background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--brand-pink) 0%, transparent 70%);
   opacity: 0.4;
 }
 .hero::after {
   width: 240px; height: 240px;
   bottom: -90px; left: -50px;
-  background: radial-gradient(circle, var(--cyan-light) 0%, transparent 70%);
-  opacity: 0.35;
+  background: radial-gradient(circle, var(--brand-blue-light) 0%, transparent 70%);
+  opacity: 0.3;
 }
 .hero-grid {
   position: relative;
@@ -307,9 +310,18 @@ body { overflow-x: hidden; }
   box-sizing: border-box;
 }
 
-/* ---------- Placeholder de imagem (elegante, sem caixa roxa) ---------- */
-.photo-placeholder {
+/* ---------- Fotos e placeholders ----------
+   Mesma caixa (proporção + cantos + sombra) serve tanto para o
+   placeholder elegante quanto para a foto real (<img>) — basta
+   trocar o conteúdo interno, o enquadramento não muda. */
+.photo-placeholder, .photo-el {
   border-radius: var(--radius);
+  aspect-ratio: 4 / 3;
+}
+.photo-placeholder.wide, .photo-el.wide { aspect-ratio: 16 / 9; }
+.photo-placeholder.portrait, .photo-el.portrait { aspect-ratio: 3 / 4; }
+
+.photo-placeholder {
   background: var(--neutral-bg);
   border: 1px solid var(--neutral-border);
   display: flex;
@@ -320,12 +332,17 @@ body { overflow-x: hidden; }
   gap: 0.6rem;
   padding: 1.6rem;
   color: var(--ink-soft);
-  aspect-ratio: 4 / 3;
 }
-.photo-placeholder.wide { aspect-ratio: 16 / 9; }
-.photo-placeholder svg { width: 38px; height: 38px; color: var(--primary); opacity: 0.85; }
+.photo-placeholder svg { width: 38px; height: 38px; color: var(--brand-pink); opacity: 0.85; }
 .photo-placeholder strong { font-family: var(--font-head); font-size: 0.95rem; color: var(--ink); }
 .photo-placeholder span { font-size: 0.85rem; color: var(--ink-soft); max-width: 34ch; }
+
+.photo-el {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  box-shadow: var(--shadow-md);
+}
 
 /* ---------- Formulário ---------- */
 .form-card {
@@ -333,7 +350,7 @@ body { overflow-x: hidden; }
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   padding: clamp(1.4rem, 3.4vw, 2.2rem);
-  border: 1px solid rgba(242, 63, 125, 0.12);
+  border: 1px solid rgba(var(--primary-deep-rgb), 0.12);
   position: relative;
   overflow: hidden;
 }
@@ -361,9 +378,9 @@ body { overflow-x: hidden; }
 }
 .field input:focus {
   outline: none;
-  border-color: var(--primary);
+  border-color: var(--brand-blue-dark);
   background: var(--white);
-  box-shadow: 0 0 0 4px rgba(242, 123, 164, 0.2);
+  box-shadow: 0 0 0 4px rgba(69, 121, 174, 0.18);
 }
 .field.has-error input { border-color: #D8244B; background: #FFF5F7; }
 .field.has-error input:focus { box-shadow: 0 0 0 4px rgba(216, 36, 75, 0.15); }
@@ -381,9 +398,9 @@ body { overflow-x: hidden; }
   font-size: 0.92rem;
 }
 .form-success {
-  background: var(--green-cream);
-  border: 1px solid var(--green);
-  color: #3f6b0a;
+  background: var(--green-pale);
+  border: 1px solid var(--brand-green);
+  color: #4c5c1e;
 }
 .form-error {
   background: #FFF0F3;
@@ -395,9 +412,9 @@ body { overflow-x: hidden; }
 /* ---------- Fundos de seção ----------
    Predomínio de branco/off-white; blocos de cor só em áreas
    estratégicas (objeção e rodapé), sem degradês grandes entre
-   várias seções seguidas. */
-.bg-cream { background: var(--green-cream); }
-.bg-cyan { background: #EEFDFF; }
+   várias seções seguidas. Cada seção usa um tom pálido diferente
+   da paleta oficial para variar sem competir com o rosa principal. */
+.bg-cream { background: var(--green-pale); }
 .bg-white { background: var(--white); }
 .bg-dark {
   background: var(--primary-deep);
@@ -408,8 +425,8 @@ body { overflow-x: hidden; }
 .bg-dark .eyebrow { background: rgba(0, 0, 0, 0.18); }
 .bg-dark .section-text { color: rgba(255,255,255,0.92); }
 
-#identificacao { background: #F1FAFB; }
-#autoridade { background: #EEFDFF; }
+#identificacao { background: var(--blue-pale); }
+#autoridade { background: var(--purple-pale); }
 
 /* ---------- Chamada final ---------- */
 .final-grid {
@@ -467,10 +484,10 @@ body { overflow-x: hidden; }
   margin-bottom: 1rem;
   color: var(--ink);
 }
-.diff-card:nth-child(1) .diff-icon { background: linear-gradient(135deg, var(--primary-light), var(--primary)); }
-.diff-card:nth-child(2) .diff-icon { background: linear-gradient(135deg, var(--cyan-light), var(--teal)); }
-.diff-card:nth-child(3) .diff-icon { background: linear-gradient(135deg, var(--green-light), var(--green)); }
-.diff-card:nth-child(4) .diff-icon { background: linear-gradient(135deg, #FFEA9E, var(--yellow)); }
+.diff-card:nth-child(1) .diff-icon { background: linear-gradient(135deg, var(--primary-pale), var(--brand-pink)); }
+.diff-card:nth-child(2) .diff-icon { background: linear-gradient(135deg, var(--blue-pale), var(--brand-blue-light)); }
+.diff-card:nth-child(3) .diff-icon { background: linear-gradient(135deg, var(--green-pale), var(--brand-green)); }
+.diff-card:nth-child(4) .diff-icon { background: linear-gradient(135deg, var(--purple-pale), var(--brand-purple)); }
 .diff-icon svg { width: 26px; height: 26px; }
 .diff-card h3 { font-size: 1.15rem; margin-bottom: 0.4em; }
 .diff-card p { color: var(--ink-soft); font-size: 0.98rem; margin: 0; }
@@ -487,14 +504,14 @@ body { overflow-x: hidden; }
   display: inline-flex;
   align-items: center;
   gap: 0.5em;
-  background: linear-gradient(120deg, #FFEA9E, var(--yellow));
-  color: #5a4300;
+  background: linear-gradient(120deg, var(--green-pale), var(--brand-green));
+  color: #435420;
   font-weight: 700;
   font-size: 0.85rem;
   padding: 0.4em 0.9em;
   border-radius: 999px;
   margin-bottom: 1.4em;
-  box-shadow: 0 6px 18px rgba(255, 216, 51, 0.35);
+  box-shadow: 0 6px 18px rgba(169, 203, 69, 0.35);
 }
 
 /* ---------- Prova social ---------- */
@@ -527,13 +544,12 @@ body { overflow-x: hidden; }
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--purple-dark);
-  background: #EFEBFB;
+  color: var(--ink);
+  background: var(--purple-pale);
   padding: 0.25em 0.7em;
   border-radius: 999px;
   margin-bottom: 0.6em;
 }
-.testimonial-note { text-align: center; color: var(--ink-soft); font-size: 0.9rem; margin-top: 1.4rem; }
 
 /* ---------- Quebra de objeção ---------- */
 .objection-list { display: grid; gap: 0.9rem; margin-top: 1.6rem; max-width: 640px; }
@@ -552,7 +568,7 @@ body { overflow-x: hidden; }
 /* ---------- Rodapé ---------- */
 .footer {
   position: relative;
-  background: var(--purple-dark);
+  background: var(--footer-bg);
   color: rgba(255,255,255,0.92);
   padding-block: 4rem 2rem;
 }
@@ -585,4 +601,4 @@ body { overflow-x: hidden; }
   overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
 
-:focus-visible { outline: 3px solid var(--purple); outline-offset: 2px; }
+:focus-visible { outline: 3px solid var(--brand-blue-dark); outline-offset: 2px; }
