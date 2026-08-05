@@ -2,9 +2,11 @@ import { applyWhatsAppLinks, buildWhatsAppLink } from "../lib/whatsapp.js";
 import { applyPhoneMask, validateLeadForm, clearFieldError } from "../lib/validation.js";
 import { initTracking, trackEvent, trackConversion } from "../lib/tracking.js";
 import { submitLead } from "../lib/lead-service.js";
+import { setupTestimonialVideos } from "../lib/testimonial-video.js";
 
 initTracking();
 applyWhatsAppLinks();
+setupTestimonialVideos();
 
 // Eventos de clique: CTA principal e WhatsApp (ver data-track no HTML).
 document.querySelectorAll("[data-track]").forEach((el) => {

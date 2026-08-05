@@ -383,7 +383,7 @@ body { overflow-x: hidden; }
 .form-card h2 { font-size: 1.3rem; margin-bottom: 0.2em; }
 .form-card .form-sub { color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 1.2em; }
 
-.field { margin-bottom: 1rem; }
+.field { margin-bottom: 1.6rem; }
 .field label { display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.4em; color: var(--ink); }
 .field input {
   width: 100%;
@@ -533,41 +533,61 @@ body { overflow-x: hidden; }
   box-shadow: 0 6px 18px rgba(169, 203, 69, 0.35);
 }
 
-/* ---------- Prova social ---------- */
-.testimonial-card {
-  background: var(--white);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  padding: 1.8rem 1.8rem 1.8rem 2.2rem;
+/* ---------- Prova social (depoimentos em vídeo) ---------- */
+.testimonial-video-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.2rem;
-  border: 1px solid rgba(43,35,51,0.06);
-  margin-top: 2rem;
+  gap: 1.5rem;
+  margin-top: 2.4rem;
+  max-width: 420px;
+  margin-inline: auto;
+}
+@media (min-width: 700px) {
+  .testimonial-video-grid { grid-template-columns: repeat(3, 1fr); max-width: none; }
+}
+
+.testimonial-video-poster {
   position: relative;
+  aspect-ratio: 9 / 16;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  background: var(--ink);
 }
-.testimonial-card::before {
-  content: "";
+.testimonial-video-poster img { width: 100%; height: 100%; object-fit: cover; }
+.testimonial-play-btn {
   position: absolute;
-  left: 0; top: 12%;
-  width: 5px; height: 76%;
-  border-radius: 999px;
-  background: var(--primary-deep);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: rgba(20, 15, 25, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
 }
-@media (min-width: 720px) { .testimonial-card { grid-template-columns: 260px 1fr; align-items: center; } }
-.testimonial-quote { font-size: 1.05rem; font-style: italic; color: var(--ink-soft); }
-.testimonial-quote strong { display: block; font-style: normal; color: var(--ink); margin-top: 0.8em; font-family: var(--font-head); }
-.testimonial-placeholder-tag {
-  display: inline-block;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--ink);
-  background: var(--purple-pale);
-  padding: 0.25em 0.7em;
-  border-radius: 999px;
-  margin-bottom: 0.6em;
+.testimonial-play-btn:hover, .testimonial-play-btn:focus-visible { background: rgba(20, 15, 25, 0.32); }
+.play-icon {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.95);
+  color: var(--primary-deep);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.2s ease;
+}
+.testimonial-play-btn:hover .play-icon { transform: scale(1.08); }
+.play-icon svg { width: 26px; height: 26px; margin-left: 3px; }
+
+.testimonial-video-el {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  background: var(--ink);
 }
 
 /* ---------- Quebra de objeção ---------- */
