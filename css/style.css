@@ -279,16 +279,18 @@ body { overflow-x: hidden; }
 @media (min-width: 960px) {
   .hero-grid {
     grid-template-columns: 1.05fr 0.95fr;
-    /* "form" ocupa só a linha 1 (não espalha pelas duas linhas): um
-       item que espalha mas não estica (align-items:start) deixa um
-       vão vazio do tamanho da linha inteira ao lado da foto. Sem
-       espalhar, cada coluna cresce pela própria altura de conteúdo. */
-    grid-template-areas: "copy form" "photo .";
-    align-items: start;
+    /* A foto ocupa a linha 2 inteira (as duas colunas) — assim cobre
+       também o espaço abaixo do card do formulário, que normalmente
+       termina bem mais cedo que a coluna de texto ao lado. */
+    grid-template-areas: "copy form" "photo photo";
+    /* stretch (não start): quando o texto é mais alto que o
+       formulário, o card cresce junto em vez de sobrar fundo vazio
+       ao lado — o form-card distribui esse espaço internamente. */
+    align-items: stretch;
   }
 }
 .hero-copy-top { grid-area: copy; }
-.hero-form-wrap { grid-area: form; }
+.hero-form-wrap { grid-area: form; display: flex; }
 .hero-photo { grid-area: photo; }
 
 /* clamp calibrado para a coluna de ~45% da largura no layout de 2
@@ -330,13 +332,6 @@ body { overflow-x: hidden; }
 .photo-placeholder.wide, .photo-el.wide { aspect-ratio: 16 / 9; }
 .photo-placeholder.portrait, .photo-el.portrait { aspect-ratio: 3 / 4; }
 
-/* Foto do hero: um pouco menos "achatada" que 16:9 no layout de duas
-   colunas, para ocupar mais a coluna esquerda em vez de ficar um
-   retângulo baixo e estreito ao lado do card do formulário. */
-@media (min-width: 960px) {
-  .hero-photo.wide { aspect-ratio: 4 / 3; }
-}
-
 .photo-placeholder {
   background: var(--neutral-bg);
   border: 1px solid var(--neutral-border);
@@ -369,7 +364,15 @@ body { overflow-x: hidden; }
   border: 1px solid rgba(var(--primary-deep-rgb), 0.12);
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
 }
+.form-card form { display: flex; flex-direction: column; flex: 1; }
+/* Empurra o botão (e o que vem depois dele) para o fim do card quando
+   sobra altura — em vez de deixar espaço vazio abaixo do card. */
+.form-card form button[type="submit"] { margin-top: auto; }
 .form-card::before {
   content: "";
   position: absolute;
