@@ -279,7 +279,11 @@ body { overflow-x: hidden; }
 @media (min-width: 960px) {
   .hero-grid {
     grid-template-columns: 1.05fr 0.95fr;
-    grid-template-areas: "copy form" "photo form";
+    /* "form" ocupa só a linha 1 (não espalha pelas duas linhas): um
+       item que espalha mas não estica (align-items:start) deixa um
+       vão vazio do tamanho da linha inteira ao lado da foto. Sem
+       espalhar, cada coluna cresce pela própria altura de conteúdo. */
+    grid-template-areas: "copy form" "photo .";
     align-items: start;
   }
 }
@@ -287,7 +291,12 @@ body { overflow-x: hidden; }
 .hero-form-wrap { grid-area: form; }
 .hero-photo { grid-area: photo; }
 
-.hero-title { font-size: clamp(2.2rem, 5.5vw, 4rem); margin-bottom: 0.4em; }
+/* clamp calibrado para a coluna de ~45% da largura no layout de 2
+   colunas (960-1400px) — em vw puro o título ficava enorme demais
+   bem na faixa em que a coluna é mais estreita, forçando quebras de
+   linha demais e deixando a coluna do texto desproporcionalmente
+   mais alta que o card do formulário ao lado. */
+.hero-title { font-size: clamp(2.2rem, 1.6rem + 2.4vw, 4rem); margin-bottom: 0.4em; }
 .hero-title .hl { color: var(--primary-deep); }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.2rem; }
 
@@ -320,6 +329,13 @@ body { overflow-x: hidden; }
 }
 .photo-placeholder.wide, .photo-el.wide { aspect-ratio: 16 / 9; }
 .photo-placeholder.portrait, .photo-el.portrait { aspect-ratio: 3 / 4; }
+
+/* Foto do hero: um pouco menos "achatada" que 16:9 no layout de duas
+   colunas, para ocupar mais a coluna esquerda em vez de ficar um
+   retângulo baixo e estreito ao lado do card do formulário. */
+@media (min-width: 960px) {
+  .hero-photo.wide { aspect-ratio: 4 / 3; }
+}
 
 .photo-placeholder {
   background: var(--neutral-bg);
